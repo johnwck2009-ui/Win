@@ -132,6 +132,7 @@ async def start_quiz(update: Update, context: ContextTypes.DEFAULT_TYPE):
     pool = random.sample(QUESTIONS, min(5, len(QUESTIONS)))
     context.user_data["game"] = {
         "type": "quiz",
+        "user_id": user.id,
         "pool": pool,
         "index": 0,
         "score": 0,
@@ -147,7 +148,7 @@ async def send_question(message, context: ContextTypes.DEFAULT_TYPE):
             with connect_db() as db:
                 db.execute(
                     "UPDATE users SET quizzes_played = quizzes_played + 1 WHERE telegram_id = ?",
-                    (message.chat_id,),
+                    (game["user_id"],),
                 )
             await message.reply_text(
                 f"🏁 Quiz complete! You scored {game['score']}/{len(game['pool'])} "
@@ -245,7 +246,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif data.startswith("answer:"):
         game = context.user_data.get("game")
         if not game or game.get("type") != "quiz" or game.get("answered"):
-            await query.answer("This question is no longer active.", show_alert=True)
+            await query.message.reply_text("This question is no longer active. Start a new quiz from the menu.")
             return
         game["answered"] = True
         question = game["pool"][game["index"]]
@@ -275,7 +276,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif data.startswith("club:"):
         game = context.user_data.get("game")
         if not game or game.get("type") != "club":
-            await query.answer("Start a new round from the menu.", show_alert=True)
+            await query.message.reply_text("Start a new round from the menu.")
             return
         answer = data.split(":", 1)[1]
         correct = answer == game["answer"]
