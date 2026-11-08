@@ -108,9 +108,9 @@ async def show_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "សូមស្វាគមន៍មកវេបសាយធំបំផុត ងាយស្រួលលេង📲 និងគួរឱ្យទុកចិត្តបំផុតនៅកម្ពុជា🔥សេវាកម្ម២៤ម៉ោង: https://t.me/WIN365KH1BOT?start=telegram"
     )
     if update.callback_query:
-        await update.callback_query.message.reply_text(message, reply_markup=menu_keyboard())
+        await update.callback_query.message.reply_text(message)
     else:
-        await update.effective_message.reply_text(message, reply_markup=menu_keyboard())
+        await update.effective_message.reply_text(message)
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
