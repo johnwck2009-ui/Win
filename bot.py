@@ -1,3 +1,4 @@
+import asyncio
 import json
 import logging
 import os
@@ -299,6 +300,9 @@ def main():
     application.add_handler(CommandHandler("leaderboard", show_leaderboard))
     application.add_handler(CallbackQueryHandler(button_handler))
     logger.info("Starting WIN365 Telegram bot...")
+    # Python 3.14 no longer creates a default event loop automatically.
+    # python-telegram-bot run_polling() expects one to exist before it starts.
+    asyncio.set_event_loop(asyncio.new_event_loop())
     application.run_polling(drop_pending_updates=True)
 
 
