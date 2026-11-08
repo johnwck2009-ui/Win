@@ -49,9 +49,9 @@ function mainMenu() {
   ]);
 }
 async function showMenu(ctx, edit = false) {
-  const message = "⚽ *WIN365 — Football Never Stops!*
+  const message = `⚽ *WIN365 — Football Never Stops!*
 
-Test your football knowledge, play quick challenges and climb the leaderboard. Ready to play?";
+Test your football knowledge, play quick challenges and climb the leaderboard. Ready to play?`;
   if (edit && ctx.callbackQuery) return ctx.editMessageText(message, { parse_mode: "Markdown", ...mainMenu() });
   return ctx.reply(message, { parse_mode: "Markdown", ...mainMenu() });
 }
