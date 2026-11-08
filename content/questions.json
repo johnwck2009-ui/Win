@@ -1,0 +1,112 @@
+[
+  {
+    "question": "Which country won the 2022 FIFA World Cup?",
+    "options": [
+      "Argentina",
+      "France",
+      "Brazil",
+      "Germany"
+    ],
+    "answer": 0,
+    "explanation": "Argentina defeated France in the final."
+  },
+  {
+    "question": "Which club plays its home matches at Anfield?",
+    "options": [
+      "Everton",
+      "Liverpool",
+      "Chelsea",
+      "Arsenal"
+    ],
+    "answer": 1,
+    "explanation": "Anfield is the home of Liverpool FC."
+  },
+  {
+    "question": "How many players does one football team have on the pitch at the start of a match?",
+    "options": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "answer": 2,
+    "explanation": "A team starts with eleven players."
+  },
+  {
+    "question": "Which country hosted the 2010 FIFA World Cup?",
+    "options": [
+      "Germany",
+      "South Africa",
+      "Brazil",
+      "Japan"
+    ],
+    "answer": 1,
+    "explanation": "South Africa hosted the 2010 tournament."
+  },
+  {
+    "question": "What is the usual duration of a football match, excluding added time and extra time?",
+    "options": [
+      "80 minutes",
+      "90 minutes",
+      "100 minutes",
+      "120 minutes"
+    ],
+    "answer": 1,
+    "explanation": "A standard match has two 45-minute halves."
+  },
+  {
+    "question": "Which position is the only one normally allowed to handle the ball within their own penalty area?",
+    "options": [
+      "Defender",
+      "Goalkeeper",
+      "Midfielder",
+      "Striker"
+    ],
+    "answer": 1,
+    "explanation": "The goalkeeper may handle the ball inside their own penalty area, subject to the Laws of the Game."
+  },
+  {
+    "question": "Which club is nicknamed The Old Lady?",
+    "options": [
+      "Juventus",
+      "AC Milan",
+      "Inter Milan",
+      "Roma"
+    ],
+    "answer": 0,
+    "explanation": "Juventus is widely known as La Vecchia Signora."
+  },
+  {
+    "question": "How many points does a team receive for a win in most league competitions?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "answer": 2,
+    "explanation": "A league win is generally worth three points."
+  },
+  {
+    "question": "Which nation has won the most men's FIFA World Cups?",
+    "options": [
+      "Germany",
+      "Italy",
+      "Argentina",
+      "Brazil"
+    ],
+    "answer": 3,
+    "explanation": "Brazil has won the men's FIFA World Cup five times."
+  },
+  {
+    "question": "What is awarded when a defender commits a direct-free-kick offence inside their own penalty area?",
+    "options": [
+      "Corner kick",
+      "Penalty kick",
+      "Throw-in",
+      "Drop ball"
+    ],
+    "answer": 1,
+    "explanation": "A penalty kick is awarded for a direct-free-kick offence inside the penalty area."
+  }
+]
