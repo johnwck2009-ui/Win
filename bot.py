@@ -105,8 +105,7 @@ def menu_keyboard():
 
 async def show_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "⚽ WIN365 — Football Never Stops!\n\n"
-        "Test your football knowledge, play quick challenges and climb the leaderboard. Ready to play?"
+        "សូមស្វាគមន៍មកវេបសាយធំបំផុត ងាយស្រួលលេង📲 និងគួរឱ្យទុកចិត្តបំផុតនៅកម្ពុជា🔥សេវាកម្ម២៤ម៉ោង: https://t.me/WIN365KH1BOT?start=telegram"
     )
     if update.callback_query:
         await update.callback_query.message.reply_text(message, reply_markup=menu_keyboard())
