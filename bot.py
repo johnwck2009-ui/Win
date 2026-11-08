@@ -88,29 +88,17 @@ def add_score(user_id, points, correct=1):
         )
 
 
-def menu_keyboard():
-    return InlineKeyboardMarkup([
-        [InlineKeyboardButton("🧠 Play Daily Quiz", callback_data="quiz")],
-        [
-            InlineKeyboardButton("⚽ Guess the Club", callback_data="guess_club"),
-            InlineKeyboardButton("👤 My Profile", callback_data="profile"),
-        ],
-        [
-            InlineKeyboardButton("🏆 Leaderboard", callback_data="leaderboard"),
-            InlineKeyboardButton("📚 Football Facts", callback_data="facts"),
-        ],
-        [InlineKeyboardButton("ℹ️ Help", callback_data="help")],
-    ])
-
-
 async def show_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
         "សូមស្វាគមន៍មកវេបសាយធំបំផុត ងាយស្រួលលេង📲 និងគួរឱ្យទុកចិត្តបំផុតនៅកម្ពុជា🔥សេវាកម្ម២៤ម៉ោង: https://t.me/WIN365KH1BOT?start=telegram"
     )
+    link_button = InlineKeyboardMarkup([[
+        InlineKeyboardButton("📲 Open WIN365", url="https://t.me/WIN365KH1BOT?start=telegram")
+    ]])
     if update.callback_query:
-        await update.callback_query.message.reply_text(message)
+        await update.callback_query.message.reply_text(message, reply_markup=link_button)
     else:
-        await update.effective_message.reply_text(message)
+        await update.effective_message.reply_text(message, reply_markup=link_button)
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -120,9 +108,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.effective_message.reply_text(
-        "Use the buttons to play quizzes, guess clubs, view your profile and check the leaderboard. "
+        "Type /quiz to play, /guess to guess a club, /profile to view your profile, "
+        "/leaderboard to see the rankings, or /help for help. "
         "Points are for entertainment only and have no cash value.",
-        reply_markup=menu_keyboard(),
     )
 
 
@@ -153,7 +141,6 @@ async def send_question(message, context: ContextTypes.DEFAULT_TYPE):
             await message.reply_text(
                 f"🏁 Quiz complete! You scored {game['score']}/{len(game['pool'])} "
                 f"and earned {game['score'] * 10} points.",
-                reply_markup=menu_keyboard(),
             )
             context.user_data.pop("game", None)
         return
@@ -198,7 +185,6 @@ async def show_profile(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"👤 Your WIN365 Profile\n\nName: {row['first_name']}\n"
         f"Points: {row['points']}\nQuizzes completed: {row['quizzes_played']}\n"
         f"Correct answers: {row['correct_answers']}\n\nKeep playing to climb the leaderboard!",
-        reply_markup=menu_keyboard(),
     )
 
 
@@ -218,7 +204,6 @@ async def show_leaderboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
         result = "No scores yet. Be the first to play!"
     await update.effective_message.reply_text(
         f"🏆 WIN365 Leaderboard\n\n{result}",
-        reply_markup=menu_keyboard(),
     )
 
 
@@ -239,8 +224,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif data == "facts":
         await query.message.reply_text(
             f"📚 Football Fact\n\n{random.choice(FACTS)}",
-            reply_markup=menu_keyboard(),
-        )
+            )
     elif data == "help":
         await help_command(update, context)
     elif data.startswith("answer:"):
@@ -269,14 +253,14 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif data == "next_question":
         game = context.user_data.get("game")
         if not game or game.get("type") != "quiz":
-            await query.message.reply_text("Start a new quiz from the menu.", reply_markup=menu_keyboard())
+            await query.message.reply_text("Start a new quiz with /quiz.")
             return
         game["index"] += 1
         await send_question(query.message, context)
     elif data.startswith("club:"):
         game = context.user_data.get("game")
         if not game or game.get("type") != "club":
-            await query.message.reply_text("Start a new round from the menu.")
+            await query.message.reply_text("Start a new round with /guess.")
             return
         answer = data.split(":", 1)[1]
         correct = answer == game["answer"]
@@ -286,7 +270,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             message = "🏆 Correct! You earned 10 points."
         else:
             message = f"Good try! The correct answer was {game['answer']}."
-        await query.message.reply_text(message, reply_markup=menu_keyboard())
+        await query.message.reply_text(message)
 
 
 def main():
@@ -295,6 +279,7 @@ def main():
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("quiz", quiz_command))
+    application.add_handler(CommandHandler("guess", guess_club))
     application.add_handler(CommandHandler("profile", show_profile))
     application.add_handler(CommandHandler("leaderboard", show_leaderboard))
     application.add_handler(CallbackQueryHandler(button_handler))
