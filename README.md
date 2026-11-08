@@ -3,30 +3,37 @@
 **WIN365 — Football Never Stops!** A football entertainment bot for quizzes, club-guessing challenges, profiles and leaderboards.
 
 ## Features
-- Daily-style football quiz rounds (5 questions per round)
+- Football quiz rounds (5 questions per round)
 - Guess-the-club challenge
 - Player profiles and non-monetary points
 - Global points leaderboard
 - Football facts
-- SQLite persistence
+- SQLite database for player scores and profiles
 
-This project is entertainment only. Points have no cash value and cannot be exchanged or wagered.
+This project is for entertainment only. Points have no cash value and cannot be exchanged or wagered.
 
 ## Requirements
-- Node.js 20+
+- Python 3.10+
 - A Telegram bot token from [@BotFather](https://t.me/BotFather)
 
 ## Run locally
 1. Clone this repository.
-2. Install dependencies: `npm install`
+2. Install dependencies: `pip install -r requirements.txt`
 3. Copy `.env.example` to `.env`.
 4. Add your Telegram token to `BOT_TOKEN` in `.env`.
-5. Start the bot: `npm start`
+5. Start the bot: `python bot.py`
 
 Never commit your `.env` file or share your bot token publicly.
 
-## Deploy
-Use a Node.js hosting service. Set `BOT_TOKEN` as a secret environment variable. Set `DATABASE_PATH` to a file on a persistent disk if your host supports persistent storage. Run `npm install` as the build command and `npm start` as the start command.
+## Deploy on Render
+Create a **Background Worker** connected to this repository.
+
+- Runtime: Python
+- Root Directory: leave blank
+- Build Command: `pip install -r requirements.txt`
+- Start Command: `python bot.py`
+
+Add `BOT_TOKEN` in the Render Environment Variables section. For persistent SQLite data, attach a persistent disk mounted at `/var/data` and add `DATABASE_PATH=/var/data/win365.db` as an environment variable. Without persistent storage, the database may be lost when the service is replaced.
 
 ## Commands
 - `/start` — open the main menu
